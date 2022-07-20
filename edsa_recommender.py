@@ -46,11 +46,11 @@ def main():
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
     page_options = ["Recommender System","Solution Overview"]
-
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
     # -------------------------------------------------------------------
     page_selection = st.sidebar.selectbox("Choose Option", page_options)
+    st.sidebar.image("logo.png", use_column_width=True)
     if page_selection == "Recommender System":
         # Header contents
         st.write('# Movie Recommender Engine')
