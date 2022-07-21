@@ -45,8 +45,8 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview", 'Visuals']
-
+    page_options = ["Recommender System","Solution Overview", 'Visual Analysis']
+    st.sidebar.image("resources/imgs/DataSim.png", use_column_width=True)
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
     # -------------------------------------------------------------------
@@ -103,9 +103,16 @@ def main():
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
+    
+    if page_selection == "Visual Analysis":
+        st.title("Visual Analysis")
+        st.write("This is a page that looks at some cool visual understanding of the data!")
+        st.subheader('Here we look at the distribution of the data and look at how the ratings are spreadout in the different rating units')
+        st.image('resources/imgs/output.png')
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
+
 
 
 if __name__ == '__main__':
