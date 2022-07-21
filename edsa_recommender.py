@@ -106,8 +106,8 @@ def main():
     
     if page_selection == "Visual Analysis":
         st.title("Visual Analysis")
-        st.write("This is a page that looks at some cool visual understanding of the data!")
-        st.subheader('Here we look at the distribution of the data and look at how the ratings are spreadout in the different rating units')
+        st.header("This is a page that looks at some cool visual understanding of the data!")
+        st.write('Here we look at the distribution of the data and look at how the ratings are spreadout in the different rating units')
         st.image('resources/imgs/output.png')
 
     # You may want to add more sections here for aspects such as an EDA,
