@@ -82,7 +82,7 @@ def content_model(movie_list,top_n=10):
     data = data_preprocessing(27000)
     # Instantiating and generating the count matrix
     hv = HashingVectorizer()
-    count_matrix = count_vec.fit_transform(data['keyWords'])
+    count_matrix = hv.fit_transform(data['keyWords'])
     indices = pd.Series(data['title'])
     cosine_sim = cosine_similarity(count_matrix, count_matrix)
     # Getting the index of the movie that matches the title
