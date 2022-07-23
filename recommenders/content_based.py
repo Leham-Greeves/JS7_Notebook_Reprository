@@ -55,8 +55,8 @@ movies.dropna(inplace=True)
     # Split genre data into individual words.
     #movies['keyWords'] = movies['genres'].str.replace('|', ' ')
     # Subset of the data
-   # movies_subset = movies[:subset_size]
-    #return movies_subset
+    movies_subset = movies[:subset_size]
+    return movies_subset
 
 # !! DO NOT CHANGE THIS FUNCTION SIGNATURE !!
 # You are, however, encouraged to change its content.  
