@@ -38,7 +38,7 @@ movies = pd.read_csv('resources/data/movies.csv', sep = ',')
 ratings = pd.read_csv('resources/data/ratings.csv')
 movies.dropna(inplace=True)
 
-def data_preprocessing(subset_size):
+#def data_preprocessing(subset_size):
     """Prepare data for use within Content filtering algorithm.
 
     Parameters
@@ -53,10 +53,10 @@ def data_preprocessing(subset_size):
 
     """
     # Split genre data into individual words.
-    movies['keyWords'] = movies['genres'].str.replace('|', ' ')
+    #movies['keyWords'] = movies['genres'].str.replace('|', ' ')
     # Subset of the data
-    movies_subset = movies[:subset_size]
-    return movies_subset
+   # movies_subset = movies[:subset_size]
+    #return movies_subset
 
 # !! DO NOT CHANGE THIS FUNCTION SIGNATURE !!
 # You are, however, encouraged to change its content.  
@@ -82,7 +82,7 @@ def content_model(movie_list,top_n=10):
     data = data_preprocessing(27000)
     # Instantiating and generating the count matrix
     hv = HashingVectorizer()
-    count_matrix = hv.fit_transform(data['keyWords'])
+    count_matrix = hv.fit_transform(data['genres'])
     indices = pd.Series(data['title'])
     cosine_sim = cosine_similarity(count_matrix, count_matrix)
     # Getting the index of the movie that matches the title
