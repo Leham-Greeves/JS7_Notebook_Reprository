@@ -33,6 +33,7 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import HashingVectorizer
+
 # Importing data
 movies = pd.read_csv('resources/data/movies.csv', sep = ',')
 ratings = pd.read_csv('resources/data/ratings.csv')
@@ -53,7 +54,7 @@ def data_preprocessing(subset_size):
 
     """
     # Split genre data into individual words.
-    #movies['keyWords'] = movies['genres'].str.replace('|', ' ')
+    movies['keyWords'] = movies['genres'].str.replace('|', ' ')
     # Subset of the data
     movies_subset = movies[:subset_size]
     return movies_subset
@@ -82,7 +83,7 @@ def content_model(movie_list,top_n=10):
     data = data_preprocessing(27000)
     # Instantiating and generating the count matrix
     hv = HashingVectorizer()
-    count_matrix = hv.fit_transform(data['genres'])
+    count_matrix = hv.fit_transform(data['keyWords'])
     indices = pd.Series(data['title'])
     cosine_sim = cosine_similarity(count_matrix, count_matrix)
     # Getting the index of the movie that matches the title
@@ -97,7 +98,7 @@ def content_model(movie_list,top_n=10):
     # Store movie names
     recommended_movies = []
     # Appending the names of movies
-    top_50_indexes = list(listings.iloc[1:50].index)
+    top_50_indexes = list(listings.iloc[1:13].index)
     # Removing chosen movies
     top_indexes = np.setdiff1d(top_50_indexes,[idx_1])
     for i in top_indexes[:top_n]:
