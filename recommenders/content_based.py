@@ -82,7 +82,7 @@ def content_model(movie_list,top_n=10):
     
 
     #data = data_preprocessing(27000)
-    data = movies[:27000]
+    data = movies[:25256]
     # Instantiating and generating the count matrix
     hv = HashingVectorizer()
     count_matrix = hv.fit_transform(data['genres'])
