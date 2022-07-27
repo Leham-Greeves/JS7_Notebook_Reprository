@@ -39,23 +39,25 @@ movies = pd.read_csv('resources/data/movies.csv', sep = ',')
 ratings = pd.read_csv('resources/data/ratings.csv')
 movies.dropna(inplace=True)
 
-movies['keyWords'] = movies['genres'].str.replace('|', ' ')
+'''def data_preprocessing(subset_size):
+    """Prepare data for use within Content filtering algorithm.
 
-# Convienient indexes to map between book titles and indexes of 
-# the movies dataframe
-titles = movies['title']
-indices = pd.Series(movies.index, index=movies['title'])
+    Parameters
+    ----------
+    subset_size : int
+        Number of movies to use within the algorithm.
 
-hv = HashingVectorizer()
+    Returns
+    -------
+    Pandas Dataframe
+        Subset of movies selected for content-based filtering.
 
-# Produce a feature matrix, where each row corresponds to a book,
-# with TF-IDF features as columns 
-hv_authTags_matrix = hv.fit_transform(movies['keyWords'])
-
-cosine_sim_authTags = cosine_similarity(hv_authTags_matrix[:12112], 
-                                        hv_authTags_matrix[:12112])
-
-
+    """
+    # Split genre data into individual words.
+    movies['keyWords'] = movies['genres'].str.replace('|', ' ')
+    # Subset of the data
+    movies_subset = movies[:subset_size]
+    return movies_subset'''
 
 # !! DO NOT CHANGE THIS FUNCTION SIGNATURE !!
 # You are, however, encouraged to change its content.  
@@ -73,19 +75,33 @@ def content_model(movie_list,top_n=10):
     Returns
     -------
     list (str)
-        Titles of the top-n movie recommendations to the user.
+        Titles of the top-n movie recommendations to the user."""
 
-    """
-    # Convert the string book title to a numeric index for our 
-    # similarity matrix
-    b_idx = indices[movie_list]
-    # Extract all similarity values computed with the reference book title
-    sim_scores = list(enumerate(cosine_sim_authTags[b_idx]))
-    # Sort the values, keeping a copy of the original index of each value
-    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
-    # Select the top-N values for recommendation
-    sim_scores = sim_scores[1:top_n]
-    # Collect indexes 
-    movie_indices = [i[0] for i in sim_scores]
-    # Convert the indexes back into titles 
-    return titles.iloc[movie_indices]
+    
+    # Initializing the empty list of recommended movies
+    recommended_movies = []
+    #data = data_preprocessing(27000)
+    data = movies[:27000]
+    # Instantiating and generating the count matrix
+    hv = HashingVectorizer()
+    count_matrix = hv.fit_transform(data['genres'])
+    indices = pd.Series(data['title'])
+    cosine_sim = cosine_similarity(count_matrix, count_matrix)
+    # Getting the index of the movie that matches the title
+    idx_1 = indices[indices == movie_list[0]].index[0]
+    # Creating a Series with the similarity scores in descending order
+    rank_1 = cosine_sim[idx_1]
+    # Calculating the scores
+    score_series_1 = pd.Series(rank_1).sort_values(ascending = False)
+    # Getting the indexes of the 10 most similar movies
+    listings = score_series_1.append(score_series_1).sort_values(ascending = False)
+
+    # Store movie names
+    recommended_movies = []
+    # Appending the names of movies
+    top_50_indexes = list(listings.iloc[1:13].index)
+    # Removing chosen movies
+    top_indexes = np.setdiff1d(top_50_indexes,[idx_1])
+    for i in top_indexes[:top_n]:
+        recommended_movies.append(list(movies['title'])[i])
+    return recommended_movies
