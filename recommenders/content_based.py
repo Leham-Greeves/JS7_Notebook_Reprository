@@ -46,8 +46,7 @@ movies['keyWords'] = movies['genres'].str.replace('|', ' ')
 titles = movies['title']
 indices = pd.Series(movies.index, index=movies['title'])
 
-hv = HashingVectorizer(analyzer='word', ngram_range=(1,2),
-                     min_df=0, stop_words='english')
+hv = HashingVectorizer()
 
 # Produce a feature matrix, where each row corresponds to a book,
 # with TF-IDF features as columns 
