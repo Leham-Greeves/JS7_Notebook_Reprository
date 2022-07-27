@@ -35,6 +35,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics.pairwise import sigmoid_kernel
 from sklearn.metrics.pairwise import linear_kernel
 from sklearn.feature_extraction.text import HashingVectorizer
+from numpy import dot
+from numpy.linalg import norm
 
 # Importing data
 movies = pd.read_csv('resources/data/movies.csv', sep = ',')
@@ -87,8 +89,8 @@ def content_model(movie_list,top_n=10):
     hv = HashingVectorizer()
     count_matrix = hv.fit_transform(data['genres'])
     indices = pd.Series(data['title'])
-    #cosine_sim = cosine_similarity(count_matrix, count_matrix)
-    cosine_sim = linear_kernel(count_matrix, count_matrix)
+    cosine_sim = cosine_similarity(count_matrix, count_matrix)
+    #cosine_sim = linear_kernel(count_matrix, count_matrix)
     # Getting the index of the movie that matches the title
     idx_1 = indices[indices == movie_list[0]].index[0]
     # Creating a Series with the similarity scores in descending order
