@@ -63,7 +63,7 @@ def main():
 
         # User-based preferences
         st.write('### Enter Your Three Favorite Movies')
-        movie_1 = st.selectbox('Fisrt Option',title_list[14930:15200])
+        movie_1 = st.selectbox('First Option',title_list[14930:15200])
         movie_2 = st.selectbox('Second Option',title_list[25055:25255])
         movie_3 = st.selectbox('Third Option',title_list[21100:21200])
         fav_movies = [movie_1,movie_2,movie_3]
@@ -120,8 +120,15 @@ def main():
         st.image('resources/imgs/output.png')
         st.subheader('2.This visual looks at the idea of the different clusters of movies in the data')
         st.image('resources/imgs/dendogram.png')
-        st.subheader('3.Here we learn that in general there are essentially 4 to clusters or genres of movies one can collect from the data')
+        st.subheader('3.Here we learn that in general there are essentially 4 clusters or genres of movies one can collect from the data')
         st.image('resources/imgs/optimal clustering.png')
+        st.subheader('4.Recommenders use a form of comparitive analysis between point of data, this illustration looks at the acuracy of the collabritive recommender at different intervals of analysis')
+        st.image('resources/imgs/collabrotive based.png')
+        st.subheader('5. The focus of this visual looks to understand the number of componants (columns in a dataset) that one can reduce to. Doing so while  still getting a good estimation allowing for efficient datasets. In this illustration we can see that we can essentially remove one of the columns. For This dataset it is the timestamp column ')
+        st.image('resources/imgs/Number of componants nessacerry.png')
+        st.subheader('6. Curious about the most popular genres are in the data look at our word cloud and let us know what you think!')
+        st.image('resources/imgs/wordcloud.png')
+
     if page_selection == 'Contact App Developers':
         st.header('For any questions or queries, please contact one of our amazing staff:')
         st.subheader('Web designer')
